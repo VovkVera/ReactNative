@@ -37,3 +37,8 @@ const o4 = deepCopy(o)
 
 o.obj.key = 'new key!'
 console.log(o4.obj.key)
+
+// string to Upper and comeback
+const str = "String"
+str.toLocaleUpperCase()
+str.toLocaleLowerCase()
