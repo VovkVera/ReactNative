@@ -28,7 +28,7 @@ function deepCopy(obj) {
     } else {
       newObject[key] = obj[key]
     }
-  }
+  } 
 
   return newObject
 }
@@ -42,3 +42,16 @@ console.log(o4.obj.key)
 const str = "String"
 str.toLocaleUpperCase()
 str.toLocaleLowerCase()
+
+
+///----- some difference between "var" and "let" 
+  for (var i = 0; i < 5; i++) {
+    console.log("in (var) i = " + i)
+  }
+console.log("out (var) i = " + i)
+
+
+  for (let k = 0; k < 5; k++) {
+    console.log("in (var) k =" + k)
+  }
+console.log("out (var) k = " + k)// error :)
