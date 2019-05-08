@@ -5,7 +5,6 @@ const o = {
     key: 'key',
   },
 }
-
 const o2 = o
 
 o2.a = 'new value'
@@ -50,8 +49,23 @@ str.toLocaleLowerCase()
   }
 console.log("out (var) i = " + i)
 
-
   for (let k = 0; k < 5; k++) {
     console.log("in (var) k =" + k)
   }
 console.log("out (var) k = " + k)// error :)
+
+///--- прекрасный пример закрытости 
+function makeHelloFunction() {
+  var message = 'Hello!'
+  function sayHello() {
+    console.log(message)
+  }
+  return sayHello
+}
+const sayHello = makeHelloFunction()
+// здесь переменной message еще не существует
+console.log('typeof message:', typeof message)
+//но функция sayHello может может вызывать переменную message
+console.log(sayHello.toString())
+//
+sayHello()
