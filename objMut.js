@@ -17,7 +17,6 @@ const o3 = Object.assign({}, o)
 // deep copy
 function deepCopy(obj) {
   const keys = Object.keys(obj)
-
   const newObject = {}
 
   for (let i = 0; i < keys.length; i++) {
@@ -69,3 +68,7 @@ console.log('typeof message:', typeof message)
 console.log(sayHello.toString())
 //
 sayHello()
+
+///
+const d = new Date();
+d.toString()
