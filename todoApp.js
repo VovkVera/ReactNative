@@ -56,23 +56,6 @@ export default class App extends React.Component {
   }))
 
   render() {
-    if (this.state.showCounter) {
-      return (
-        <View style={styles.appContainer}>
-          <Button title="toggle" onPress={this.toggleCounter} />
-          <Counter />
-        </View>
-      )
-    } else {
-      return (
-        <View style={styles.appContainer}>
-          <Button title="toggle" onPress={this.toggleCounter} />
-        </View>
-      )
-    }
-  }
-
-  render() {
     return (
       <View style={styles.appContainer}>
         <Button title="toggle" onPress={this.toggleCounter} />
