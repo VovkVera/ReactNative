@@ -1,67 +1,58 @@
 // https://snack.expo.io/@veravovk/todoapp
-import React from 'react';
-import {View, Button, Text, StyleSheet} from 'react-native'
+import React, { Component } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { Constants } from 'expo';
 
-const styles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  count: {
-    fontSize: 48,
+class OnlyUpdateOnEvens extends Component {
+  shouldComponentUpdate(nextProps) {
+    return !(nextProps.count % 2)
   }
-})
+  
+  componentDidUpdate() {
+    console.log(this.props.count)
+  }
+  
+  render() {
+    return <Text>{this.props.count}</Text>
+  }
+}
 
-class Counter extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      count: 0,
-    }
+class Counter extends Component {
+  state = {
+    count: 0,
   }
   
   componentDidMount() {
-    this.interval = setInterval(this.inc, 1000)
+    this.timer = setInterval(this.incrementCount, 500)
   }
   
-  componentWillUnmount() {
-    clearInterval(this.interval)
+  incrementCount = () => {
+    this.setState(prevState => ({count: prevState.count + 1}))
   }
   
-  inc = () => {
-    console.log('increment!')
-    this.setState(prevState => ({
-      count: prevState.count + 1,
-    }))
-  }
-
   render() {
-    return (
-      <Text style={styles.count}>{this.state.count} </Text>
-    )
+    return <OnlyUpdateOnEvens count={this.state.count} />
   }
 }
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showCounter: true,
-    }
-  }
-  
-  toggleCounter = () => this.setState(prevState => ({
-    showCounter: !prevState.showCounter,
-  }))
-
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.appContainer}>
-        <Button title="toggle" onPress={this.toggleCounter} />
-        {this.state.showCounter && <Counter />}
+      <View style={styles.container}>
+        <Counter />
       </View>
-    )
+    );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#18961e',
+  },
+});
+
 
