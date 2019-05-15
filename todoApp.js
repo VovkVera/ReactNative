@@ -1,58 +1,95 @@
 // https://snack.expo.io/@veravovk/todoapp
-import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Constants } from 'expo';
+import React from 'react';
+import {View, Button, Text, ScrollView, StyleSheet, Switch} from 'react-native'
+import {Constants} from 'expo'
 
-class OnlyUpdateOnEvens extends Component {
-  shouldComponentUpdate(nextProps) {
-    return !(nextProps.count % 2)
-  }
-  
-  componentDidUpdate() {
-    console.log(this.props.count)
-  }
-  
-  render() {
-    return <Text>{this.props.count}</Text>
-  }
-}
-
-class Counter extends Component {
-  state = {
-    count: 0,
-  }
-  
-  componentDidMount() {
-    this.timer = setInterval(this.incrementCount, 500)
-  }
-  
-  incrementCount = () => {
-    this.setState(prevState => ({count: prevState.count + 1}))
-  }
-  
-  render() {
-    return <OnlyUpdateOnEvens count={this.state.count} />
-  }
-}
-
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Counter />
-      </View>
-    );
-  }
-}
+let id = 0
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 2,
+  todoContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#18961e',
   },
-});
+  appContainer: {
+    paddingTop: Constants.statusBarHeight,
+  },
+  fill: {
+    flex: 1,
+  }
+})
+
+const Todo = props => (
+  <View style={styles.todoContainer}>
+    <Switch value={props.todo.checked} onValueChange={props.onToggle} />
+    <Button onPress={props.onDelete} title="delete" />
+    <Text>{props.todo.text}</Text>
+  </View>
+
+
+)
+
+export default class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      todos: [],
+      
+    }
+    
+  }
+
+  addTodo() {
+    id++
+    const text = `TODO number ${id}`
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {id: id, text: text, checked: false},
+      ], 
+    })
+  }
+
+  removeTodo(id) {
+    this.setState({
+      todos: this.state.todos.filter(todo => todo.id !== id)
+    })
+  }
+
+  toggleTodo(id) {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id !== id) return todo
+        return {
+          id: todo.id,
+          text: todo.text,
+          checked: !todo.checked,
+        }
+      })
+    })
+  }
+
+  render() {
+    return (
+      <View style={[styles.appContainer, styles.fill]}>
+        <Text>Todo count: {this.state.todos.length}</Text>
+        <Text>Unchecked todo count: {this.state.todos.filter(todo => !todo.checked).length}</Text>
+        <Button onPress={() => this.addTodo()} title="Add TODO" />
+        <Text>Привет! </Text>
+        
+        <ScrollView style={styles.fill}>
+          {this.state.todos.map(todo => (
+            <Todo
+              onToggle={() => this.toggleTodo(todo.id)}
+              onDelete={() => this.removeTodo(todo.id)}
+              todo={todo}
+            />
+            
+          ))}
+        </ScrollView>
+      </View>
+    )
+  }
+}
+
 
 
