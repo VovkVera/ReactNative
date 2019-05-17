@@ -141,6 +141,27 @@ sayHello()
 ///
 const d = new Date();
 d.toString()
-//
 
 
+// for render
+
+render() {
+    return (
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          value={this.state.name}
+          onChangeText={this.handleNameChange}
+          placeholder="Name"
+        />
+        <TextInput
+          keyboardType="numeric"
+          style={styles.input}
+          value={this.state.phone}
+          onChangeText={this.handlePhoneChange}
+          placeholder="Phone"
+        />
+        <Button title="Submit" />
+      </View>
+    )
+  }
