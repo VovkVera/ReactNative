@@ -54,25 +54,7 @@ export default class App extends React.Component {
     showCounter: !prevState.showCounter,
   }))
 
-  // this was the render() code originally written in lecture
-  render() {
-    if (this.state.showCounter) {
-      return (
-        <View style={styles.appContainer}>
-          <Button title="toggle" onPress={this.toggleCounter} />
-          <Counter />
-        </View>
-      )
-    } else {
-      return (
-        <View style={styles.appContainer}>
-          <Button title="toggle" onPress={this.toggleCounter} />
-        </View>
-      )
-    }
-  }
 
-  // this is a more concise version with the same functionality
   render() {
     return (
       <View style={styles.appContainer}>
