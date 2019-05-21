@@ -1,3 +1,4 @@
+// https://snack.expo.io/@veravovk/todoapp
 import React from 'react';
 import {View, Button, Text, StyleSheet} from 'react-native'
 
