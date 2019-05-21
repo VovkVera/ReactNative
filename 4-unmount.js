@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   count: {
-    fontSize: 48,
+    fontSize: 54,
   }
 })
 
@@ -22,7 +22,7 @@ class Counter extends React.Component {
   }
   
   componentDidMount() {
-    this.interval = setInterval(this.inc, 1000)
+    this.interval = setInterval(this.inc, 500)
   }
   
   componentWillUnmount() {
